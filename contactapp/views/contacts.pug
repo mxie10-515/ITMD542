@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to view: #{title}
+  a(href='/contacts/add') Click to create a new contact
+  hr
+  if contacts.length > 0
+    div#contacts-box
+      ul.contacts-list
+        each val in contacts
+          li(data-contactId=val.contactId) 
+            a(href=`/contacts/${val.contactId}`)=`FirstName: ${val.firstName}, Last Name: ${val.lastName}, Email Address: ${val.emailAddress}`
+           
+
+      

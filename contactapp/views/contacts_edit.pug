@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+  p please use the below form to edit this contact
+  hr
+  if msg
+    p(class='redtext')= msg
+  form(action=`/contacts/${contact.contactId}/edit`, method='POST')
+    p
+      label(for='firstName') First Name:
+      input(type='text', name='firstName', id='firstName', value=contact.firstName)
+    p
+      label(for='lastName') Last Name:
+      input(type='text', name='lastName', id='lastName', value=contact.lastName)
+    p
+      label(for='emailAddress') Email Address:
+      input(type='email', name='emailAddress', id='emailAddress', value=contact.emailAddress)
+    p
+      label(for='Notes') Notes:
+      input(type='text', name='notes', id='notes', value=contact.notes)
+
+    button(type='submit') Confirm and Save Changes
+    a(href = '/contacts')  Cancel
