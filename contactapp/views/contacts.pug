@@ -3,14 +3,26 @@ extends layout
 block content
   h1= title
   p Welcome to view: #{title}
-  a(href='/contacts/add') Click to create a new contact
+  a.contact-link(href='/contacts/add') Click to create a new contact
+  a.contact-link(href='/')  Back to HomePage
   hr
   if contacts.length > 0
-    div#contacts-box
-      ul.contacts-list
+    table
+      thead
+        tr
+          th First Name
+          th Last Name
+          th Email Address
+          th Link of View Details
+      tbody
         each val in contacts
-          li(data-contactId=val.contactId) 
-            a(href=`/contacts/${val.contactId}`)=`FirstName: ${val.firstName}, Last Name: ${val.lastName}, Email Address: ${val.emailAddress}`
-           
+          tr
+            td= val.firstName
+            td= val.lastName
+            td= val.emailAddress
+            td 
+              a.contact-link(href=`/contacts/${val.contactId}`) view contact details
+
+       
 
       
