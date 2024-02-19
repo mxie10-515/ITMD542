@@ -1,38 +1,39 @@
 const crypto = require('crypto');
 const fs = require('fs');
-const path= require('path');
+const path = require('path');
 
 
 const db = new Map();
 let contactIdCounter = 100;
 
-// Function to generate the next contact ID
+// Function to generate the uuid
 function generateContactId() {
-    contactIdCounter+=10;
-    return contactIdCounter.toString();
+  let uuid = crypto.randomBytes(16).toString('hex');
+  console.log(uuid);
+  return uuid;
 }
 
 // Function to create a new contact
 function generateContact(firstName, lastName, emailAddress, notes) {
-    // generate unique random uuid
-    const contactId = generateContactId(); 
+  // generate unique random uuid
+  const contactId = generateContactId();
 
-    // Get the current system time
+  // Get the current system time
 
-    const currentTime = new Date();
-    // Create the contact object
-    const contact = {
-        contactId,
-        firstName,
-        lastName,
-        emailAddress,
-        notes,
-        dateCreated: currentTime,
-        dateModified: currentTime
-    };
+  const currentTime = new Date();
+  // Create the contact object
+  const contact = {
+    contactId,
+    firstName,
+    lastName,
+    emailAddress,
+    notes,
+    dateCreated: currentTime,
+    dateModified: currentTime
+  };
 
 
-    return contact;
+  return contact;
 }
 
 // load data from file 
@@ -60,33 +61,33 @@ const loadData = () => {
 
 // save data to file
 const saveData = () => {
-    const jsonData = JSON.stringify(Array.from(db));
-    fs.writeFileSync(path.join(__dirname,'../data/contact.json'),jsonData);
+  const jsonData = JSON.stringify(Array.from(db));
+  fs.writeFileSync(path.join(__dirname, '../data/contact.json'), jsonData);
 };
 
 
 
 
 const repo = {
-    findAll: () => Array.from(db.values()),
-    create: (contact) =>{
+  findAll: () => Array.from(db.values()),
+  create: (contact) => {
 
-        const newContact = generateContact(contact.firstName,contact.lastName,contact.emailAddress,contact.notes);
-        db.set(newContact.contactId,newContact);
-        saveData();
-    },
+    const newContact = generateContact(contact.firstName, contact.lastName, contact.emailAddress, contact.notes);
+    db.set(newContact.contactId, newContact);
+    saveData();
+  },
 
-   findById:(uuid) => db.get(uuid),
+  findById: (uuid) => db.get(uuid),
 
-   deleteById:(uuid) => {
+  deleteById: (uuid) => {
     db.delete(uuid);
     saveData();
   },
 
-   update:(contact) => { 
-    db.set(contact.contactId,contact);
+  update: (contact) => {
+    db.set(contact.contactId, contact);
     saveData();
-   }
+  }
 }
 
 loadData();
