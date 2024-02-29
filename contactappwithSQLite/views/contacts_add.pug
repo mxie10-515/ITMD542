@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+  p please use the below form to create a new contact
+  hr
+  if msg
+    p(class='redtext')= msg
+  form(action='/contacts/add', method='POST')
+    p
+      label(for='firstName') First Name:
+      input(type='text', name='firstName', id='firstName', placeholder='Enter first name')
+    p
+      label(for='lastName') Last Name:
+      input(type='text', name='lastName', id='lastName', placeholder='Enter last name')
+    p
+      label(for='emailAddress') Email Address:
+      input(type='email', name='emailAddress', id='emailAddress', placeholder='Enter email address')
+    p
+      label(for='Notes') Notes:
+      input(type='text', name='notes', id='notes', placeholder='Enter notes')
+
+    button(type='submit') Create a new contact
+    a(href = '/contacts') Cancel

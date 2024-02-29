@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  p1 ContactId:
+  p= contact.contactId
+  p1 First Name:
+  p= contact.firstName
+  p1 Last Name:
+  p= contact.lastName
+  p1 Email Address:
+  p= contact.emailAddress
+  p1 Notes:
+  p= contact.notes
+  p1 Date Created: 
+  p= contact.dateCreated
+  p1 Date Modified: 
+  p= contact.dateModified
+  
+  div.contact-actions
+    a.contact-link(href=`/contacts/${contact.contactId}/delete`)  Delete this contact
+
+    a.contact-link(href=`/contacts/${contact.contactId}/edit`)  Edit this contact
+
+    a.contact-link(href='/contacts')  Back to Contacts
